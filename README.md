@@ -10,12 +10,14 @@ Login/Create account --> join room/create room --> send transcriptions (with a m
 ## Technologies Used
 * **React, HTML, CSS**
 * **Node.js**
+* **MongoDB**
 * **Claude.ai**
 * **Socket.io client**
 * **Web Speech API**
 
 **How I used AI**
 * To guide me through setting up the development environment, making sure I got everything installed, etc.
+* Getting MongoDB set up and working (mainly with the code that saves and fetches users)
 
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io
