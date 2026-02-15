@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { io } from "socket.io-client";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import CreateAccount from "./pages/CreateAccount";
 
 function App() {
   useEffect(() => {
@@ -13,9 +16,12 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <h1>Live Caption App</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element ={<Login />}/>
+        <Route path="/create-account" element={<CreateAccount />}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
