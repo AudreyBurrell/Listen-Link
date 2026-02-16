@@ -31,8 +31,8 @@ function Login() {
             if(response.ok) {
                 sessionStorage.setItem('token', data.token);
                 sessionStorage.setItem('user', JSON.stringify(data.user));
-                //navigate to main screen
                 console.log('Login: success');
+                navigate('/join');
             } else {
                 setError(data.message || 'Login failed');
             }

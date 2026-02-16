@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
+import JoinCreateRoom from "./pages/JoinCreateRoom";
 
 function App() {
   useEffect(() => {
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element ={<Login />}/>
         <Route path="/create-account" element={<CreateAccount />}/>
+        <Route path="/join" element={<JoinCreateRoom />} />
       </Routes>
     </BrowserRouter>
   );

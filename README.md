@@ -2,10 +2,10 @@
 I got this idea coming home from church one day, and later talking to someone who is hard of hearing express how hard it is to sometimes go to church because it's hard to hear if people are especially quiet/no microphone, if the room is big, or if there are a lot of conversations in the background. This will be used by anyone who wants to send/recieve live transcriptions through the browser.
 
 General plan for the path: 
-Login/Create account --> join room/create room --> send transcriptions (with a mic button)/view transcriptions (the text will show up almost like a message with the user's username by it to help determine who is talking)
+Login/Create account DONE --> join room/create room --> send transcriptions (with a mic button)/view transcriptions (the text will show up almost like a message with the user's username by it to help determine who is talking)
 
 ## Features
-
+* Login/Create account
 
 ## Technologies Used
 * **React, HTML, CSS**
@@ -18,6 +18,7 @@ Login/Create account --> join room/create room --> send transcriptions (with a m
 **How I used AI**
 * To guide me through setting up the development environment, making sure I got everything installed, etc.
 * Getting MongoDB set up and working (mainly with the code that saves and fetches users)
+* Teaching me about session storage and how I can use it like I used local storage in previous projects
 
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io

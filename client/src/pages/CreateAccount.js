@@ -36,8 +36,8 @@ function CreateAccount() {
             if(response.ok) {
                 sessionStorage.setItem('token', data.token);
                 sessionStorage.setItem('user', JSON.stringify(data.user));
-                //navigate to main screen
                 console.log('Create account: success');
+                navigate('/join');
             } else {
                 setError(data.message || 'Create account failed');
             }
