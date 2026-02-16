@@ -19,6 +19,7 @@ Login/Create account DONE --> join room/create room --> send transcriptions (wit
 * To guide me through setting up the development environment, making sure I got everything installed, etc.
 * Getting MongoDB set up and working (mainly with the code that saves and fetches users)
 * Teaching me about session storage and how I can use it like I used local storage in previous projects
+* Authenticating the tokens
 
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io

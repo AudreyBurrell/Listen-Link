@@ -19,6 +19,10 @@ mongoose.connect(process.env.MONGODB_URI)
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
+//room routes
+const roomRoutes = require('./routes/rooms');
+app.use('/api/rooms', roomRoutes);
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
