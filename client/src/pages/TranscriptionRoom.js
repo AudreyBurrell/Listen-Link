@@ -46,35 +46,60 @@ function TranscriptionRoom() {
     }, [roomId, roomName, navigate]);
 
     const handleStartMic = () => {
-        if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-            setError('Speech recognition not supproted in this browser');
-            return;
-        }
-        if(!isRecording) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = true;
-            recognition.lang = 'en-US';
+    if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        setError('Speech recognition not supported in this browser');
+        return;
+    }
+    
+    if(!isRecording) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
 
-            recognition.onresult = (event) => {
-                let interimTranscript = '';
-                let finalTranscript = '';
+        recognition.onresult = (event) => {
+            let interimTranscript = '';
+            let finalTranscript = '';
 
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
-                    if (event.results[i].isFinal) {
-                        finalTranscript += transcript + ' ';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    finalTranscript += transcript + ' ';
+                } else {
+                    interimTranscript += transcript;
+                }
+            }
+
+            // Show interim results locally (real-time preview)
+            if (interimTranscript) {
+                setTranscriptionText(prev => {
+                    // Remove previous interim text and add new one
+                    const lines = prev.split('\n');
+                    const lastLine = lines[lines.length - 1];
+                    
+                    // If last line is interim (starts with [username] but no final text)
+                    if (lastLine.startsWith(`[${username}]`) && lastLine.includes('...')) {
+                        lines[lines.length - 1] = `[${username}]: ${interimTranscript}...`;
                     } else {
-                        interimTranscript += transcript;
+                        lines.push(`[${username}]: ${interimTranscript}...`);
                     }
-                }
+                    
+                    return lines.join('\n');
+                });
+            }
 
-                if (finalTranscript && socket) {
-                    // Send final transcription to all users in room
-                    socket.emit('send-transcription', roomId, finalTranscript, username);
-                }
-            };
+            // Send final transcription to all users in room
+            if (finalTranscript && socket) {
+                socket.emit('send-transcription', roomId, finalTranscript, username);
+                
+                // Update local display with final text
+                setTranscriptionText(prev => {
+                    const lines = prev.split('\n').filter(line => !line.includes('...'));
+                    return lines.join('\n');
+                });
+            }
+        };
             recognition.onerror = (event) => {
                 console.error('Speech recognition error:', event.error);
                 setError(`Error: ${event.error}`);
@@ -97,6 +122,7 @@ function TranscriptionRoom() {
             setIsRecording(false);
         }
     };
+
     const handleLeaveRoom = () => {
         if (window.confirm('Are you sure you want to leave this room?')) {
             navigate('/app');

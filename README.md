@@ -4,6 +4,8 @@ I got this idea coming home from church one day, and later talking to someone wh
 General plan for the path: 
 Login/Create account DONE --> join room/create room DONE --> send transcriptions (with a mic button)/view transcriptions (the text will show up almost like a message with the user's username by it to help determine who is talking)
 
+Perhaps download transcriptions/send to phone or email or something
+
 ## Features
 * Login/Create account
 * View/send transcriptions
