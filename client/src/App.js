@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
 import JoinCreateRoom from "./pages/JoinCreateRoom";
+import TranscriptionRoom from "./pages/TranscriptionRoom";
 
 function App() {
   useEffect(() => {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element ={<Login />}/>
         <Route path="/create-account" element={<CreateAccount />}/>
         <Route path="/join" element={<JoinCreateRoom />} />
+        <Route path="/room" element={<TranscriptionRoom />}/>
       </Routes>
     </BrowserRouter>
   );

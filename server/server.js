@@ -39,6 +39,42 @@ io.on("connection", (socket) => {
   });
 });
 
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  // Join a specific room
+  socket.on("join-room", (roomId, username) => {
+    socket.join(roomId);
+    console.log(`${username} joined room: ${roomId}`);
+    
+    // Notify others in the room
+    socket.to(roomId).emit("user-joined", username);
+  });
+
+  // Handle transcription
+  socket.on("send-transcription", (roomId, transcription, username) => {
+    console.log(`Transcription from ${username} in room ${roomId}:`, transcription);
+    
+    // Broadcast to everyone in the room (including sender)
+    io.to(roomId).emit("receive-transcription", {
+      text: transcription,
+      username: username,
+      timestamp: new Date()
+    });
+  });
+
+  // Leave room
+  socket.on("leave-room", (roomId, username) => {
+    socket.leave(roomId);
+    console.log(`${username} left room: ${roomId}`);
+    socket.to(roomId).emit("user-left", username);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+  });
+});
+
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

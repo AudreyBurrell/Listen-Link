@@ -94,7 +94,9 @@ function JoinCreateRoom() {
 
             if (response.ok) {
                 console.log('Joined room:', data);
-                navigate(`/room/${roomId}`);
+                const room = roomList.find(r => r.id === roomId);
+                navigate('/room', { state: { roomId: roomId, roomName: room.name } });
+                // navigate(`/room/${roomId}`); //I AM GOING TO DO THIS PART A BIT DIFFERENTLY
             } else {
                 alert(data.message || 'Failed to join room');
             }
@@ -180,7 +182,7 @@ function JoinCreateRoom() {
                                         }}
                                     >
                                         Delete Room
-                                    </button>
+                                    </button> 
                                 </div>
                             </div>
                         ))}
